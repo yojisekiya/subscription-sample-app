@@ -1,0 +1,231 @@
+<a!DOCTYPE html>
+    <html>
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width,initial-scale=1">
+        <title>My subscription page</title>
+        <link rel="stylesheet" href="<%= app_url %>/mycss.css" />
+        <style>
+        </style>
+    </head>
+
+    <body>
+
+        <div class="Polaris-Box"
+            style="--pc-box-background:var(--p-color-bg-subdued);--pc-box-overflow-x:hidden;--pc-box-overflow-y:hidden;--pc-box-padding-block-end-xs:var(--p-space-4);--pc-box-padding-block-end-sm:var(--p-space-5);--pc-box-padding-block-start-xs:var(--p-space-4);--pc-box-padding-block-start-sm:var(--p-space-5);--pc-box-padding-inline-start-xs:var(--p-space-4);--pc-box-padding-inline-start-sm:var(--p-space-5);--pc-box-padding-inline-end-xs:var(--p-space-4);--pc-box-padding-inline-end-sm:var(--p-space-5);--pc-box-shadow:var(--p-shadow-md)">
+            <div style="float: left;">
+                <h1 class="Polaris-Text--root Polaris-Text--heading4xl">Your subscription data</h1>
+            </div>
+            <div style="float: left; margin-left: 1em;">
+                <button class="Polaris-Button Polaris-Button--primary" type="button" onclick="sendEmail();">
+                    <span class="Polaris-Button__Content">
+                        <span class="Polaris-Button__Text">Send an email to update my payment method</span>
+                    </span>
+                </button>
+            </div>
+            <div style="float: left; margin-left: 1em;">
+                <button class="Polaris-Button" type="button" onclick="updatePayment();">
+                    <span class="Polaris-Button__Content">
+                        <span class="Polaris-Button__Text">Update my payment method here</span>
+                    </span>
+                </button>
+            </div>
+            <div style="float: left; margin-left: 1em;">
+                <span class="Polaris-Badge Polaris-Badge--statusInfo" style="display: none;" id="badge">
+                    <span class="Polaris-Text--root Polaris-Text--visuallyHidden">Info</span>
+                    <span class="Polaris-Text--root Polaris-Text--bodySm" id="result"></span>
+                </span>
+            </div>
+            <div style="clear: both;">
+                <p>
+                    <a href="https://shopify.dev/docs/apps/selling-strategies/purchase-options/customer-portal/create-customer-portal"
+                        target="_blank">Dev. doc</a>
+                </p>
+            </div>
+            <div style="margin-top: 1em; margin-bottom: 1em;">
+                <h2 class="Polaris-Text--root Polaris-Text--headingxl">Manage your contract</h2>
+                <p>(for the first one only)</p>
+                <p>
+                    <a href="https://shopify.dev/docs/apps/selling-strategies/subscriptions/contracts/update"
+                        target="_blank">
+                        Dev. doc
+                    </a>
+                </p>
+            </div>
+            <ul>
+                <li>
+                    <div style="margin-bottom: 10px;">
+                        <label for="variant_id">Variant Id:</label><input type="text" name="variant_id" id="variant_id"
+                            placeholder="gid://shopify/ProductVariant/1234567890"
+                            style="width: 350px; margin-right: 5px;" />
+                        <label for="quantity">Quantity:</label><input type="text" name="quantity" id="quantity"
+                            placeholder="1" style="width: 50px; margin-right: 5px;" />
+                    </div>
+                    <div style="margin-bottom: 10px;">
+                        <button class="Polaris-Button Polaris-Button--primary" type="button"
+                            onclick="changeLine('add_line');">
+                            <span class="Polaris-Button__Content">
+                                <span class="Polaris-Button__Text">Add a new line</span>
+                            </span>
+                        </button>
+                        Or
+                        <button class="Polaris-Button Polaris-Button--primary" type="button"
+                            onclick="changeLine('update_line');">
+                            <span class="Polaris-Button__Content">
+                                <span class="Polaris-Button__Text">Update the first line</span>
+                            </span>
+                        </button>
+                        &nbsp;
+                        <span class="Polaris-Badge Polaris-Badge--statusInfo" style="display: none;" id="badge2">
+                            <span class="Polaris-Text--root Polaris-Text--visuallyHidden">Info</span>
+                            <span class="Polaris-Text--root Polaris-Text--bodySm" id="result2"></span>
+                        </span>
+                    </div>
+                </li>
+                <li>
+                    <div style="margin-bottom: 10px;">
+                        <label for="interval">Interval:</label><input type="text" name="interval" id="interval"
+                            placeholder="20" style="width: 50px;" /> days
+                    </div>
+                    <div style="margin-bottom: 10px;">
+                        <button class="Polaris-Button" type="button" onclick="updateInterval();">
+                            <span class="Polaris-Button__Content">
+                                <span class="Polaris-Button__Text">Change the interval</span>
+                            </span>
+                        </button>
+                        &nbsp;
+                        <span class="Polaris-Badge Polaris-Badge--statusInfo" style="display: none;" id="badge3">
+                            <span class="Polaris-Text--root Polaris-Text--visuallyHidden">Info</span>
+                            <span class="Polaris-Text--root Polaris-Text--bodySm" id="result3"></span>
+                        </span>
+                    </div>
+                </li>
+                <li>
+                    <div style="margin-bottom: 10px;">
+                        <label for="interval">Currency:</label><input type="text" name="currency" id="currency"
+                            placeholder="USD" style="width: 50px;" />
+                    </div>
+                    <div style="margin-bottom: 10px;">
+                        <button class="Polaris-Button Polaris-Button--primary" type="button" onclick="updateCurrency();">
+                            <span class="Polaris-Button__Content">
+                                <span class="Polaris-Button__Text">Change the currency</span>
+                            </span>
+                        </button>
+                        &nbsp;
+                        <span class="Polaris-Badge Polaris-Badge--statusInfo" style="display: none;" id="badge3">
+                            <span class="Polaris-Text--root Polaris-Text--visuallyHidden">Info</span>
+                            <span class="Polaris-Text--root Polaris-Text--bodySm" id="result3"></span>
+                        </span>
+                    </div>
+                </li>
+                <li>
+                    <div style="margin-bottom: 10px;">
+                        <button class="Polaris-Button" type="button" onclick="removeLine();">
+                            <span class="Polaris-Button__Content">
+                                <span class="Polaris-Button__Text">Remove the first line</span>
+                            </span>
+                        </button>
+                        &nbsp;
+                        <span class="Polaris-Badge Polaris-Badge--statusInfo" style="display: none;" id="badge4">
+                            <span class="Polaris-Text--root Polaris-Text--visuallyHidden">Info</span>
+                            <span class="Polaris-Text--root Polaris-Text--bodySm" id="result4"></span>
+                        </span>
+                    </div>
+                </li>
+                <li>
+                    <div>
+                        <button class="Polaris-Button Polaris-Button--primary" type="button" onclick="cancel();">
+                            <span class="Polaris-Button__Content">
+                                <span class="Polaris-Button__Text">Cancel the contract</span>
+                            </span>
+                        </button>
+                        &nbsp;
+                        <span class="Polaris-Badge Polaris-Badge--statusInfo" style="display: none;" id="badge5">
+                            <span class="Polaris-Text--root Polaris-Text--visuallyHidden">Info</span>
+                            <span class="Polaris-Text--root Polaris-Text--bodySm" id="result5"></span>
+                        </span>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <div>
+            <pre>
+<%= JSON.stringify(json, null, 4) %>
+        </pre>
+        </div>
+
+        <script>
+            const sendEmail = function () {
+                window.document.getElementById('badge').style.display = 'none';
+                fetch(`mysubpage?event=email&token=<%= token %>`, {
+                    method: "GET"
+                }).then((res) => {
+                    res.json().then((data, errors) => {
+                        if (typeof errors !== 'undefined') {
+                            console.log(`Sending email errors: ${JSON.stringify(errors)}`);
+                            return;
+                        }
+                        console.log(`data: ${JSON.stringify(data)}`);
+                        let html = '';
+                        if (typeof data.Success === 'undefined') {
+                            html = `Sending an mail was Failed. <b>${data.Error}</b>`;
+                        } else {
+                            html = `An email was sent to <b>${data.Success}</b>`;
+                        }
+                        window.document.getElementById('result').innerHTML = html;
+                        window.document.getElementById('badge').style.display = 'inline';
+                    });
+                });
+            };
+            const updatePayment = function () {
+                window.document.getElementById('badge').style.display = 'none';
+                fetch(`mysubpage?event=update&token=<%= token %>`, {
+                    method: "GET"
+                }).then((res) => {
+                    res.json().then((data, errors) => {
+                        if (typeof errors !== 'undefined') {
+                            console.log(`Updating payment errors: ${JSON.stringify(errors)}`);
+                            return;
+                        }
+                        console.log(`data: ${JSON.stringify(data)}`);
+                        let html = '';
+                        if (typeof data.Success === 'undefined') {
+                            html = `Updating payment was Failed. <b>${data.Error}</b>`;
+                        } else {
+                            html = `Click <b><a href="${data.Success}" target="_blank">this link</a></b> to update your payment method.`;
+                        }
+                        window.document.getElementById('result').innerHTML = html;
+                        window.document.getElementById('badge').style.display = 'inline';
+                    });
+                });
+            };
+            const changeLine = function (event) {
+                const variant_id = window.document.getElementById('variant_id').value;
+                const quantity = window.document.getElementById('quantity').value;
+                window.document.getElementById('badge').style.display = 'none';
+                fetch(`mysubpage?event=${event}&token=<%= token %>&id=<%= id %>&plan_id=<%= plan_id %>&line_id=<%= line_id %>&line_price=<%= line_price %>&variant_id=${variant_id}&quantity=${quantity}`, {
+                    method: "GET"
+                }).then((res) => {
+                    res.json().then((data, errors) => {
+                        if (typeof errors !== 'undefined') {
+                            console.log(`Add line errors: ${JSON.stringify(errors)}`);
+                            return;
+                        }
+                        console.log(`data: ${JSON.stringify(data)}`);
+                        let html = '';
+                        if (typeof data.Success === 'undefined') {
+                            html = `Adding a new line was Failed. <b>${data.Error}</b>`;
+                        } else {
+                            html = `Successful! Check the result by <a href="#" onclick="window.location.reload(); return false;">refreshing the page</a>.`;
+                        }
+                        window.document.getElementById('result2').innerHTML = html;
+                        window.document.getElementById('badge2').style.display = 'inline';
+                    });
+                });
+            };
+        </script>
+
+    </body>
+
+    </html>

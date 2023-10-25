@@ -1,0 +1,43 @@
+{
+  "name": "my-shopify-subscription-sample-app",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "engines": {
+    "node": ">=16.0.0"
+  },
+  "dependencies": {
+    "@koa/cors": "^4.0.0",
+    "@shopify/app": "^3.49.3",
+    "@shopify/cli": "^3.49.3",
+    "jsonwebtoken": "^9.0.1",
+    "jwt-decode": "^3.1.2",
+    "koa": "^2.14.2",
+    "koa-bodyparser": "^4.4.1",
+    "koa-http-request": "^2.2.1",
+    "koa-router": "^12.0.0",
+    "koa-static": "^5.0.0",
+    "koa-views": "^8.1.0",
+    "mongodb": "^6.1.0",
+    "mysql": "^2.18.1",
+    "pg": "^8.11.3",
+    "underscore": "^1.9.0",
+    "uuid": "^9.0.0"
+  },
+  "scripts": {
+    "build": "cd frontend && npm install && npm run build && rm -rf ../public/assets && mv dist/assets ../public/assets && mv dist/index.html ../views/index.html",
+    "start": "node app.js",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "shopify": "shopify",
+    "dev": "shopify app dev",
+    "info": "shopify app info",
+    "generate": "shopify app generate",
+    "deploy": "shopify app deploy"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "",
+  "workspaces": [
+    "extensions/*"
+  ]
+}
