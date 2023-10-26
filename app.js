@@ -1335,9 +1335,9 @@ const getDBPostgreSQL = function (key) {
     console.log(`getDBPostgreSQL POSTGRESQL_URL ${POSTGRESQL_URL}`);
     const client = new Client({
       connectionString: POSTGRESQL_URL,
-      ssl: {
-        rejectUnauthorized: false
-      }
+      // ssl: {
+      //   rejectUnauthorized: false
+      // }
     });
     client.connect().then(function () {
       //console.log(`getDBPostgreSQL Connected: ${POSTGRESQL_URL}`);
